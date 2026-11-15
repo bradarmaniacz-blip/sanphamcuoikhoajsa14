@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Explore Pokémon, their types, and stats in an interactive Pokédex powered by PokéAPI.">
+    <title>Pokédex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/main.css">
+    <script src="./static/js/main.js" defer></script>
+</head>
+
+<body>
+    <nav class="navbar site-nav">
+        <div class="container py-1">
+            <a class="brand-link" href="#" aria-label="Pokédex home">
+                <span class="brand-mark" aria-hidden="true">◈ Pokédex</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <p class="eyebrow mb-3">Gotta explore them all</p>
+            <h1 class="mb-4">Discover your<br>next favorite.</h1>
+            <p class="hero-copy fs-5 mb-4">Browse Pokémon, learn their types, and check out their stats.</p>
+            <form id="search-form" class="search-box d-flex" role="search">
+                <label class="visually-hidden" for="pokemonSearch">Search Pokémon by name or Pokédex number</label>
+                <input class="form-control" type="text" id="pokemonSearch" list="pokemon-history"
+                    placeholder="Enter a Pokémon name or number">
+                <datalist id="pokemon-history"></datalist>
+                <button class="btn btn-gallery" id="search" type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col" style="text-align: left;">
+                <p>10 con pokemon được tìm kiếm nhiều nhất</p>
+            </div>
+            <div class="col">
+                <main class="collection-section" style="text-align: left;">
+                    <div class="container">
+                        <div id="pokemon-result" class="row" aria-live="polite"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+</body>
+
+</html>

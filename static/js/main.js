@@ -4,11 +4,17 @@ const result = document.getElementById("pokemon-result");
 const historyList = document.getElementById("pokemon-history");
 let searchHistoryItems = JSON.parse(localStorage.getItem("pokemonSearchHistory") || "[]");
 
-// top 10 con pokemon đc tìm kiếm nhiều 
-form.addEventListener("submit", async function (event) {
-    event.preventDefault();
+// hiển thị lịch sử tìm kiếm
+function renderSearchHistory() {
+    historyList.replaceChildren();
+    searchHistoryItems.forEach(function (name) {
+        const option = document.createElement("option");
+        option.value = name;
+        historyList.appendChild(option);
+    });
+}
 
-
+renderSearchHistory();
 
 const statLabels = {
     hp: "HP",
@@ -19,20 +25,32 @@ const statLabels = {
     speed: "Speed"
 };
 
-form.addEventListener("submit", async function (event){
+form.addEventListener("submit", async function (event) {
     event.preventDefault();
-    
-}
 
+    // Làm sạch dữ liệu tìm kiếm và không gửi yêu cầu nếu ô tìm kiếm trống.
+    const name = input.value.trim().toLowerCase();
+    if (!name) {
+        result.textContent = "Please enter a Pokémon name or number.";
+        return;
+    }
 
     result.textContent = "Loading...";
 
     try {
-        // Lấy thông tin Pokémon, mô tả loài và dữ liệu quan hệ của các hệ
+        // Lấy thông tin Pokémon, mô tả loài và dữ liệu quan hệ của các hệ từ PokéAPI.
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
         if (!response.ok) throw new Error("Pokémon not found.");
         const pokemon = await response.json();
 
+        searchHistoryItems = [
+            pokemon.name,
+            ...searchHistoryItems.filter(function (name) {
+                return name !== pokemon.name;
+            })
+        ];
+        localStorage.setItem("pokemonSearchHistory", JSON.stringify(searchHistoryItems));
+        renderSearchHistory();
 
         const speciesResponse = await fetch(pokemon.species.url);
         const species = await speciesResponse.json();
@@ -59,7 +77,7 @@ form.addEventListener("submit", async function (event){
             });
         }))];
 
-        // Hiển thị thông tin Pokémon
+        // Hiển thị thông tin Pokémon sau khi các yêu cầu API hoàn tất.
         result.innerHTML = `
             <div class="card pokemon-card">
                 <div class="row align-items-start">
