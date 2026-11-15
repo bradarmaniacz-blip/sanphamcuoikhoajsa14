@@ -1,0 +1,413 @@
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.site-nav {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+}
+
+.site-nav .container,
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.brand-link {
+    text-decoration: none;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-left: auto;
+}
+
+.auth-nav a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-nav-cta {
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: 0 0.2rem 0.7rem rgb(29 43 39 / 5%);
+}
+
+.brand-mark {
+    margin: 0;
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.hero {
+    overflow: hidden;
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    background: #243a35;
+    color: #fffefa;
+}
+
+.hero .eyebrow {
+    color: #f2a28c;
+}
+
+.hero h1 {
+    max-width: 720px;
+    font-family: var(--display-font);
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+}
+
+.eyebrow {
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.hero-copy {
+    max-width: 560px;
+    color: rgb(255 254 250 / 78%);
+    line-height: 1.65;
+}
+
+.search-box {
+    max-width: 760px;
+    gap: 0.65rem;
+    padding: 0.45rem;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 0.85rem;
+    background: rgb(255 255 255 / 8%);
+}
+
+.search-box .form-control {
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    border: 0;
+    background: transparent;
+    color: #fffefa;
+    box-shadow: none;
+}
+
+.search-box .form-control::placeholder {
+    color: rgb(255 254 250 / 62%);
+}
+
+.btn-gallery {
+    padding: 0.8rem 1.25rem;
+    border: 0;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 650;
+    white-space: nowrap;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.btn-gallery:hover {
+    transform: translateY(-1px);
+    background: #ad402d;
+    color: #fff;
+}
+
+.collection-section {
+    min-height: 24rem;
+    padding: clamp(3rem, 7vw, 5.5rem) 0;
+}
+
+.collection-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-family: var(--display-font);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    text-transform: capitalize;
+}
+
+.filter-label {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.filter-label .form-select {
+    min-width: 10rem;
+    border-color: var(--line);
+    border-radius: 0.65rem;
+    background-color: var(--surface);
+}
+
+.results-summary {
+    min-height: 1.5rem;
+    margin: 1.5rem 0 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+#artworks > * {
+    min-width: 0;
+}
+
+.pokemon-card {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.85rem;
+    background: var(--surface);
+    box-shadow: 0 0.35rem 1.2rem rgb(32 35 31 / 4%);
+    transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.75rem 1.8rem rgb(32 35 31 / 10%);
+}
+
+.pokemon-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    padding: 1rem;
+    background: #f0eee7;
+}
+
+.pokemon-card .card-body {
+    padding: 1.1rem;
+}
+
+.pokemon-number {
+    margin-bottom: 0.25rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.pokemon-card .card-title {
+    margin-bottom: 0.8rem;
+    font-family: var(--display-font);
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+.type-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.type-badge {
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    background: #e9e5d9;
+    color: #353a34;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.type-fire { background: #f8d9cb; color: #8e321d; }
+.type-water { background: #d7e7fa; color: #245482; }
+.type-grass { background: #dcebd4; color: #3a652e; }
+.type-electric { background: #f8edbf; color: #79600a; }
+.type-ice { background: #d6f0ee; color: #246560; }
+.type-fighting { background: #f2d5d4; color: #7e2825; }
+.type-poison { background: #ead9f2; color: #643879; }
+.type-ground { background: #efe1c5; color: #715229; }
+.type-flying { background: #e1def5; color: #514884; }
+.type-psychic { background: #f6d8e5; color: #8b365b; }
+.type-bug { background: #e7edc9; color: #56641f; }
+.type-rock { background: #e8dfc7; color: #665734; }
+.type-ghost { background: #dcd9ee; color: #4a426f; }
+.type-dragon { background: #d9e0f6; color: #394b83; }
+.type-dark { background: #dfd9d5; color: #473c37; }
+.type-steel { background: #dce3e5; color: #45575c; }
+.type-fairy { background: #f5dce7; color: #874a65; }
+
+.pokemon-stats {
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.auth-page {
+    padding: clamp(2.5rem, 5vw, 4rem) 0 4.5rem;
+}
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.auth-aside,
+.auth-form-panel {
+    border: 1px solid var(--line);
+    border-radius: 1.15rem;
+    background: var(--surface);
+    box-shadow: 0 0.8rem 2rem rgb(29 43 39 / 5%);
+}
+
+.auth-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(2rem, 4vw, 3rem);
+    background: linear-gradient(135deg, #243a35 0%, #1c2f2a 100%);
+    color: #fffdf8;
+}
+
+.auth-aside h1 {
+    margin-bottom: 1rem;
+    font-family: var(--display-font);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+}
+
+.auth-aside p,
+.auth-aside .eyebrow {
+    color: rgba(255, 253, 248, 0.78);
+}
+
+.auth-aside-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #f2a28c;
+}
+
+.auth-form-panel {
+    padding: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.auth-form-panel h2 {
+    margin-bottom: 0.5rem;
+    font-family: var(--display-font);
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.auth-intro,
+.auth-switch,
+.auth-form-status {
+    color: var(--muted);
+}
+
+.auth-form {
+    display: grid;
+    gap: 1.1rem;
+    margin-top: 1.5rem;
+}
+
+.auth-form .form-label {
+    margin-bottom: 0.45rem;
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.auth-form .form-control {
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: none;
+}
+
+.auth-form .form-control:focus {
+    border-color: rgba(216, 109, 77, 0.7);
+    box-shadow: 0 0 0 0.2rem rgba(216, 109, 77, 0.14);
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.8rem 1.1rem;
+    border: 0;
+    border-radius: 0.8rem;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.auth-submit:hover {
+    background: var(--accent-deep);
+    transform: translateY(-1px);
+}
+
+.auth-form-status {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+}
+
+.auth-switch {
+    margin-top: 1.2rem;
+    text-align: center;
+}
+
+.auth-switch a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+    .auth-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-nav {
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box .btn-gallery {
+        width: 100%;
+    }
+
+    .collection-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

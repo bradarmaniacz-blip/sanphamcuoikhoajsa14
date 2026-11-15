@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Create your Pokédex account and start exploring Pokémon.">
+    <title>Create account | Pokédex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/main.css">
+    <script src="./static/js/register.js"></script>
+</head>
+
+<body>
+    <nav class="navbar site-nav">
+        <div class="container py-1">
+            <a class="brand-link" href="./main.html" aria-label="Pokédex home">
+                <span class="brand-mark" aria-hidden="true">◈ Pokédex</span>
+            </a>
+            <div class="auth-nav">
+                <a href="./login.html">Log in</a>
+                <a class="auth-nav-cta" href="./register.html" aria-current="page">Create account</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-page">
+        <div class="auth-layout">
+            <aside class="auth-aside">
+                <div>
+                    <p class="eyebrow mb-3">Start your adventure</p>
+                    <h1>Make room for a little wonder.</h1>
+                    <p>Create an account and begin building your own journey through the world of Pokémon.</p>
+                </div>
+                <p class="auth-aside-note">A whole world of discoveries is just around the corner.</p>
+            </aside>
+
+            <section class="auth-form-panel" aria-labelledby="register-title">
+                <h2 id="register-title">Create account</h2>
+                <p class="auth-intro">Join the adventure. It only takes a moment.</p>
+                <form class="auth-form" id="registerForm">
+                    <div>
+                        <label class="form-label" for="register-name">Trainer name</label>
+                        <input class="form-control" type="text" id="register-name" name="name" autocomplete="name" placeholder="Your name" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="register-email">Email address</label>
+                        <input class="form-control" type="email" id="register-email" name="email" autocomplete="email" placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="register-password">Password</label>
+                        <input class="form-control" type="password" id="register-password" name="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required>
+                    </div>
+                    <button class="btn auth-submit" type="submit">Create account</button>
+                    <p class="auth-form-status" role="status" hidden></p>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="./login.html">Log in</a></p>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
