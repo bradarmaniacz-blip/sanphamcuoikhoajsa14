@@ -14,5 +14,5 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
     }
 
     localStorage.setItem("checkLogin", email);
-    window.location.href = "./main.html";
+    window.location.href = "./index.html";
 });

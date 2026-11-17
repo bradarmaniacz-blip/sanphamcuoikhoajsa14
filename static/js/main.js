@@ -2,6 +2,34 @@ const form = document.getElementById("search-form");
 const input = document.getElementById("pokemonSearch");
 const result = document.getElementById("pokemon-result");
 const top10Pokemon = document.getElementById("popular-pokemon");
+const authNav = document.getElementById("auth-nav");
+
+// Hiển thị nút đăng nhập hoặc đăng xuất theo trạng thái
+function renderAuthButton() {
+    authNav.replaceChildren();
+
+    if (localStorage.getItem("checkLogin")) {
+        const logoutButton = document.createElement("button");
+        logoutButton.type = "button";
+        logoutButton.className = "auth-nav-cta";
+        logoutButton.textContent = "Logout";
+        logoutButton.addEventListener("click", function () {
+            localStorage.removeItem("checkLogin");
+            renderAuthButton();
+        });
+        authNav.appendChild(logoutButton);
+        return;
+    }
+
+    const loginLink = document.createElement("a");
+    loginLink.href = "./login.html";
+    loginLink.className = "auth-nav-cta";
+    loginLink.textContent = "Login";
+    authNav.appendChild(loginLink);
+}
+
+// Cập nhật thanh điều hướng trước khi đọc các dữ liệu Top 10.
+renderAuthButton();
 
 // Chỉ lưu số lượt tìm theo Pokémon; xóa dữ liệu lịch sử từ phiên bản trước nếu có.
 localStorage.removeItem("pokemonSearchHistory");

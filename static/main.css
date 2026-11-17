@@ -28,10 +28,13 @@ body {
     margin-left: auto;
 }
 
-.auth-nav a {
+.auth-nav a,
+.auth-nav button {
     color: var(--ink);
+    font: inherit;
     font-weight: 600;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .auth-nav-cta {

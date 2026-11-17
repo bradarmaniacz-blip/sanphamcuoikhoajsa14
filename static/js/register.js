@@ -5,13 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const name = document.getElementById("register-name").value.trim();
         const email = document.getElementById("register-email").value.trim().toLowerCase();
         const password = document.getElementById("register-password").value;
+        const status = document.querySelector(".auth-form-status");
 
         if (password.length < 8) {
             alert("Password must be at least 8 characters.");
             return;
         }
 
-        const accounts = JSON.parse(localStorage.getItem("account") || "[]");
+        let accounts;
+        try {
+            accounts = JSON.parse(localStorage.getItem("account") || "[]");
+        } catch (error) {
+            status.hidden = false;
+            return;
+        }
+
         if (accounts.some(function (account) {
             return account.username === email;
         })) {
@@ -20,7 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         accounts.push({ username: email, password: password, name: name });
-        localStorage.setItem("account", JSON.stringify(accounts));
+
+        // Save the new account before leaving the registration page.
+        try {
+            localStorage.setItem("account", JSON.stringify(accounts));
+        } catch (error) {
+            status.hidden = false;
+            return;
+        }
+
+        status.hidden = false;
         window.location.href = "./login.html";
     });
 });
