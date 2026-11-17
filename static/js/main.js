@@ -1,21 +1,33 @@
 const form = document.getElementById("search-form");
 const input = document.getElementById("pokemonSearch");
 const result = document.getElementById("pokemon-result");
-const historyList = document.getElementById("pokemon-history");
-let searchHistoryItems = JSON.parse(localStorage.getItem("pokemonSearchHistory") || "[]");
+const top10Pokemon = document.getElementById("popular-pokemon");
 
-// hiển thị lịch sử tìm kiếm
-function renderSearchHistory() {
-    historyList.replaceChildren();
-    searchHistoryItems.forEach(function (name) {
-        const option = document.createElement("option");
-        option.value = name;
-        historyList.appendChild(option);
-    });
+// Chỉ lưu số lượt tìm theo Pokémon; xóa dữ liệu lịch sử từ phiên bản trước nếu có.
+localStorage.removeItem("pokemonSearchHistory");
+let pokemonSearchCounts = JSON.parse(localStorage.getItem("pokemonSearchCounts") || "{}");
+
+// Hiển thị Top 10 Pokémon
+function renderPopularPokemon() {
+    top10Pokemon.replaceChildren();
+
+    // Sắp xếp theo lượt tìm giảm dần, rồi lấy tối đa 10 Pokémon đầu tiên.
+    Object.entries(pokemonSearchCounts)
+        .sort(function (first, second) {
+            return second[1] - first[1] || first[0].localeCompare(second[0]);
+        })
+        .slice(0, 10)
+        .forEach(function (entry) {
+            const item = document.createElement("li");
+            item.textContent = `${entry[0]} - ${entry[1]} lượt tìm kiếm`;
+            top10Pokemon.appendChild(item);
+        });
 }
 
-renderSearchHistory();
+// Hiển thị Top 10 đã lưu ngay khi mở trang.
+renderPopularPokemon();
 
+// Tên dễ đọc cho các chỉ số
 const statLabels = {
     hp: "HP",
     attack: "Attack",
@@ -25,10 +37,11 @@ const statLabels = {
     speed: "Speed"
 };
 
+// Xử lý tìm kiếm Pokémon
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    // Làm sạch dữ liệu tìm kiếm và không gửi yêu cầu nếu ô tìm kiếm trống.
+    // Chuẩn hóa nội dung và dừng nếu ô tìm kiếm đang trống.
     const name = input.value.trim().toLowerCase();
     if (!name) {
         result.textContent = "Please enter a Pokémon name or number.";
@@ -38,34 +51,31 @@ form.addEventListener("submit", async function (event) {
     result.textContent = "Loading...";
 
     try {
-        // Lấy thông tin Pokémon, mô tả loài và dữ liệu quan hệ của các hệ từ PokéAPI.
+        // Tải dữ liệu Pokémon; truy vấn không hợp lệ sẽ chuyển sang phần báo lỗi.
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
         if (!response.ok) throw new Error("Pokémon not found.");
         const pokemon = await response.json();
 
-        searchHistoryItems = [
-            pokemon.name,
-            ...searchHistoryItems.filter(function (name) {
-                return name !== pokemon.name;
-            })
-        ];
-        localStorage.setItem("pokemonSearchHistory", JSON.stringify(searchHistoryItems));
-        renderSearchHistory();
+        // Ghi nhận lượt tìm thành công vào localStorage rồi cập nhật Top 10.
+        pokemonSearchCounts[pokemon.name] = (pokemonSearchCounts[pokemon.name] || 0) + 1;
+        localStorage.setItem("pokemonSearchCounts", JSON.stringify(pokemonSearchCounts));
+        renderPopularPokemon();
 
+        // Tải mô tả loài và thông tin tương quan của các hệ Pokémon.
         const speciesResponse = await fetch(pokemon.species.url);
         const species = await speciesResponse.json();
         const typeResponses = await Promise.all(pokemon.types.map(function (item) {
             return fetch(item.type.url);
         }));
-        const types = await Promise.all(typeResponses.map(function (response) {
-            return response.json();
+        const types = await Promise.all(typeResponses.map(function (typeResponse) {
+            return typeResponse.json();
         }));
 
         const description = species.flavor_text_entries.find(function (entry) {
             return entry.language.name === "en";
         });
 
-        // Gộp các hệ trùng nhau để danh sách điểm yếu và điểm mạnh dễ đọc hơn.
+        // Gộp hệ trùng nhau để danh sách điểm yếu và điểm mạnh không bị lặp.
         const weaknesses = [...new Set(types.flatMap(function (type) {
             return type.damage_relations.double_damage_from.map(function (item) {
                 return item.name;
@@ -77,7 +87,7 @@ form.addEventListener("submit", async function (event) {
             });
         }))];
 
-        // Hiển thị thông tin Pokémon sau khi các yêu cầu API hoàn tất.
+        // Hiển thị thông tin sau khi các dữ liệu liên quan đã được tải xong.
         result.innerHTML = `
             <div class="card pokemon-card">
                 <div class="row align-items-start">
@@ -102,6 +112,7 @@ form.addEventListener("submit", async function (event) {
                 </div>
             </div>`;
     } catch (error) {
+        // Hiển thị lỗi tìm kiếm hoặc lỗi tải dữ liệu liên quan.
         result.textContent = error.message;
     }
 });

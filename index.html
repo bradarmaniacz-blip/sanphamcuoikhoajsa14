@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="utf-8">
@@ -28,27 +28,23 @@
             <p class="hero-copy fs-5 mb-4">Browse Pokémon, learn their types, and check out their stats.</p>
             <form id="search-form" class="search-box d-flex" role="search">
                 <label class="visually-hidden" for="pokemonSearch">Search Pokémon by name or Pokédex number</label>
-                <input class="form-control" type="text" id="pokemonSearch" list="pokemon-history"
+                <input class="form-control" type="text" id="pokemonSearch"
                     placeholder="Enter a Pokémon name or number">
-                <datalist id="pokemon-history"></datalist>
                 <button class="btn btn-gallery" id="search" type="submit">Search</button>
             </form>
         </div>
     </header>
-    <div class="container text-center">
-        <div class="row align-items-start">
-            <div class="col" style="text-align: left;">
-                <p>10 con pokemon được tìm kiếm nhiều nhất</p>
+    <main class="container collection-section">
+        <div class="row align-items-start g-4">
+            <div class="col-12 col-md-4" aria-labelledby="popular-heading">
+                <p id="popular-heading" class="section-title">Top 10 Pokémon được tìm kiếm nhiều nhất</p>
+                <ol id="popular-pokemon" class="popular-pokemon-list" aria-live="polite"></ol>
             </div>
-            <div class="col">
-                <main class="collection-section" style="text-align: left;">
-                    <div class="container">
-                        <div id="pokemon-result" class="row" aria-live="polite"></div>
-                    </div>
-                </main>
+            <div class="col-12 col-md-8" aria-label="Kết quả tìm kiếm">
+                <div id="pokemon-result" class="row" aria-live="polite"></div>
             </div>
         </div>
-
+    </main>
 </body>
 
 </html>
