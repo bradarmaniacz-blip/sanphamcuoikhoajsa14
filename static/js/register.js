@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         accounts.push({ username: email, password: password, name: name });
 
-        // Save the new account before leaving the registration page.
         try {
             localStorage.setItem("account", JSON.stringify(accounts));
         } catch (error) {
